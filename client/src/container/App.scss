@@ -251,6 +251,18 @@ table {
     .lastActMenu {
       border-top: 1px solid #757575;
     }
+    @media (max-width: 520px) {
+      top: 93px;
+      width: 160px;
+      .tri {
+        right: 17px;
+        top: 82px;
+      }
+      .tri2 {
+        right: 16px;
+        top: 81px;
+      }
+    }
   }
 }
 
@@ -326,6 +338,18 @@ table {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+    }
+  }
+  @media (max-width: 520px) {
+    top: 93px;
+    width: 160px;
+    .tri {
+      right: 58px;
+      top: 82px;
+    }
+    .tri2 {
+      right: 57px;
+      top: 81px;
     }
   }
 }
@@ -406,6 +430,14 @@ table {
     height: calc(100vh - 93px);
   }
   .movieList {
+    @media (max-width: 1068px) {
+      .movie {
+        width: 20% !important;
+        .titleSpan {
+          font-size: 1em;
+        }
+      }
+    }
     @media (max-width: 735px) {
       .movie {
         width: 33.33% !important;
@@ -426,7 +458,7 @@ table {
       position: relative;
       z-index: 1;
       float: left;
-      width: 25%;
+      width: 20%;
       height: auto;
 
       .title {
