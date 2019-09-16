@@ -13,6 +13,7 @@ const validateRegisterInput = require("../functions/validation").validateRegiste
 
 // Load User model
 const User = require("../models/User");
+const Comment = require("../models/Comment");
 
 // @route POST api/users/register
 // @desc Register user
@@ -142,10 +143,13 @@ module.exports = (passport) => {
             changePic = `/user/${req.body.username}_${tracker}.png`
             fs.writeFileSync(__dirname + `/../../client/public${changePic}`, base64Image, {encoding: 'base64'});
             User.updateOne({username: req.body.username}, {profileImage: changePic}).then(x => {
-                res.json({
-                    newURL: changePic
+                Comment.updateMany({username: req.body.username}, {profileImage: changePic}).then(x => {
+                    res.json({
+                        newURL: changePic
+                    })
                 })
             })
+            
         } else {
             const profileImagePath = fs.readdirSync(__dirname + `/../../client/public/user/`);
             profileImagePath.map(image => {

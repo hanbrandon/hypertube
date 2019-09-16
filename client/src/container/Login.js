@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { loginUser, translateTo } from "../actions/index";
 import classnames from "classnames";
 
+import translateJson from "../utils/translate.json";
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -50,28 +52,25 @@ class Login extends Component {
 
     translateToEn = e => {
         e.preventDefault();
-        console.log("en");
         this.props.translateTo("en");
     }
 
     translateToKo = e => {
         e.preventDefault();
-        console.log("ko");
         this.props.translateTo("ko");
     }
 
     render() {
         const { errors } = this.state;
         const lang = this.props.translate.lang;
-        console.log(lang);
         return (
             <div className="loginform">
                 <form noValidate onSubmit={this.onSubmit}>
                     <div className="logo"><Link to="/">{lang === "en" ? "Hypertube" : "하이퍼튜브"}</Link></div>
                     <div><input onChange={this.onChange} value={this.state.username} error={errors.username} className={classnames("", { invalid: errors.username || errors.usernamenotfound }) + "logininput"} placeholder={lang === "en" ? "Username" : "아이디"} id="username" type="text" required/></div>
-                    <span className="red-text"> {errors.username} {errors.usernamenotfound} </span>
+                    <span className="red-text"> {lang === "en" ? errors.username : translateJson[errors.username]} {lang === "en" ? errors.usernamenotfound : translateJson[errors.usernamenotfound]} </span>
                     <div><input onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", { invalid: errors.password || errors.passwordincorrect }) + "logininput"} placeholder={lang === "en" ? "Password" : "비밀번호"} id="password" type="password" required/></div>
-                    <span className="red-text"> {errors.password} {errors.passwordincorrect} </span>
+                    <span className="red-text"> {lang === "en" ? errors.password : translateJson[errors.password]} {lang === "en" ? errors.passwordincorrect : translateJson[errors.passwordincorrect]} </span>
                     <hr/>
                     <button className="btn-customize btn-customize-full" type="submit">{lang === "en" ? "LOGIN" : "로그인"}</button>
                     <hr/>

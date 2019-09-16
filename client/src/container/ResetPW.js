@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { verifyReset, translateTo} from "../actions/index";
 import classnames from "classnames";
 
+import translateJson from "../utils/translate.json";
+
 class ForgotPW extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,6 @@ class ForgotPW extends Component {
         if (this.props.auth.isAuthenticated) {
             this.props.history.push("/dashboard");
         }
-        console.log(this.props.match);
         this.setState({
             token: this.props.match.params.token
         })
@@ -56,13 +57,11 @@ class ForgotPW extends Component {
 
     translateToEn = e => {
         e.preventDefault();
-        console.log("en");
         this.props.translateTo("en");
     }
 
     translateToKo = e => {
         e.preventDefault();
-        console.log("ko");
         this.props.translateTo("ko");
     }
 
@@ -84,9 +83,9 @@ class ForgotPW extends Component {
                     <form onSubmit={this.onSubmit}>
                         <div className="logo"><Link to="/">{lang === "en" ? "Hypertube" : "하이퍼튜브"}</Link></div>
                         <div><input onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", {invalid: errors.password}) + "logininput"} placeholder={lang === "en" ? "Enter Password" : "비밀번호 입력"} id="password" type="password" required/></div>
-                        <span className="red-text">{errors.password}</span>
+                        <span className="red-text">{lang === "en" ? errors.password : translateJson[errors.password]}</span>
                         <div><input onChange={this.onChange} value={this.state.password2} error={errors.password2} className={classnames("", {invalid: errors.password2}) + "logininput"} placeholder={lang === "en" ? "Re-enter Password" : "비밀번호 재입력"} id="password2" type="password" required/></div>
-                        <span className="red-text">{errors.password2}</span>
+                        <span className="red-text">{lang === "en" ? errors.password2 : translateJson[errors.password2]}</span>
                         <hr/>
                         <button className="btn-customize btn-customize-full" type="submit">{lang === "en" ? "RESET PASSWORD" : "비밀번호 변경하기"}</button>
                     </form>

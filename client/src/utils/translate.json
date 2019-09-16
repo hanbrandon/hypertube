@@ -24,5 +24,18 @@
     "Talk-Show" : "토크쇼",
     "Thriller" : "스릴러",
     "War" : "전쟁",
-    "Western" : "서부"
+    "Western" : "서부",
+    "Incorrect username!" : "아이디 틀림!",
+    "Incorrect password!" : "비밀번호 틀림!",
+    "Username field is required" : "아이디 필수입력",
+    "First name field is required" : "이름 필수입력",
+    "Last name field is required" : "성 필수입력",
+    "Email field is required" : "이메일 필수입력",
+    "Password field is required" : "비밀번호 필수입력",
+    "Confirm password field is required" : "비밀번호 필수 재입력",
+    "Password must be at least 6 characters" : "비밀번호 최소 6글자 이상 필수",
+    "Passwords must match" : "비밀번호가 매치되지 않음",
+    "Email is invalid" : "올바른 이메일 주소가 아님",
+    "Email already exists" : "이미 가입된 이메일 주소",
+    "Username already exists" : "이미 가입된 아이디"
 }
