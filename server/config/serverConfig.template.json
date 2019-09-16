@@ -1,0 +1,37 @@
+{
+    "google": {
+        "web": {
+            "client_id": "",
+            "project_id": "",
+            "auth_uri": "",
+            "token_uri": "",
+            "auth_provider_x509_cert_url": "",
+            "client_secret": "",
+            "redirect_uris": [""],
+            "javascript_origins": [""]
+        }
+    },
+    "facebook": {
+        "app_id": "",
+        "app_secret": "",
+        "call_back_url": ""
+    },
+    "fortytwo": {
+        "uid": "",
+        "secret": "",
+        "redirect_uri": ""
+    },
+    "slack": {
+        "client_id": "",
+        "client_secret": "",
+        "redirect_uri": ""
+    },
+    "session": {
+        "secret": ""
+    },
+    "mailInfo": {
+        "service": "",
+        "user": "",
+        "pass": ""
+    }
+}

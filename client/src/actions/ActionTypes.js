@@ -1,0 +1,15 @@
+export const GET_ERRORS = "GET_ERRORS";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const USER_LOADING = "USER_LOADING";
+export const GET_USER = "GET_USER";
+export const BROWSE = 'BROWSE';
+export const QUERY_COMMENT = 'QUERY_COMMENT';
+export const POST_COMMENT = 'POST_COMMENT';
+export const SORT_BY = 'SORT_BY';
+export const ORDER_BY = 'ORDER_BY';
+export const GENRE = 'GENRE';
+export const SEARCH = 'SEARCH';
+export const RESET_PAGE = 'RESET_PAGE';
+export const UPLOAD_PROFILE = 'UPLOAD_PROFILE';
+export const TRANSLATE = 'TRANSLATE';
+export const STREAM = 'STREAM';
