@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MovieList from '../components/MovieList';
+import { getWatchedMovies } from "../actions/index";
 import { connect } from "react-redux";
 
 class Home extends Component {
@@ -15,6 +16,9 @@ class Home extends Component {
 	}
 	componentDidMount(){
 		this._getMovies();
+		if (this.props.auth.isAuthenticated) {
+			this.props.getWatchedMovies(this.props.auth.user.username);
+		}
 	}
 
 	componentDidUpdate(nextProps, prevState, snapshot) {
@@ -125,9 +129,19 @@ const mapStateToProps = state => ({
 	order_by: state.order_by.order_by,
 	search_by: state.search_by.search_by,
 	genre_by: state.genre_by.genre_by,
-	translate: state.translate
+	translate: state.translate,
+	auth: state.auth
 })
 
+const mapDispatchToProps = dispatch => {
+	return {
+		getWatchedMovies: username => {
+			dispatch(getWatchedMovies(username));
+		}
+	}
+}
+
 export default connect(
-    mapStateToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(Home);

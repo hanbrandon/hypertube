@@ -136,7 +136,6 @@ export const queryMovie = (imdb) => dispatch => {
             .post("/api/movie/directory", imdb_id)
             .then(res => {
                 if (res) {
-                    console.log(res)
                     if (res.data.movie) {
                         queryData = {...queryData, videoPath: res.data.movie}
                     }
@@ -147,7 +146,6 @@ export const queryMovie = (imdb) => dispatch => {
                         let mergedTorrents = queryData.torrents.concat(res.data.torrents)
                         queryData = {...queryData, torrents: mergedTorrents };
                     }
-                    console.log(queryData);
                 }
                 dispatch(movieInfo(queryData))
             })
@@ -346,11 +344,28 @@ export const translateTo = (lang) => {
 };
 
 // Watched movie
-export const watchedVideo = imdb_id => {
+
+export const watchedVideoInfo = vidList => {
+    return {
+        type: types.WATCHED_VIDEO,
+        payload: vidList.watchedImdb
+    }
+}
+
+export const watchedVideo = imdb_id => dispatch => {
     axios
         .post("/api/users/watchmovie", imdb_id)
         .then(res => {
-            console.log(res)
+            dispatch(watchedVideoInfo(res.data));
+        })
+        .catch(err => console.log(err));
+}
+
+export const getWatchedMovies = username => dispatch => {
+    axios
+        .post("/api/users/getwatched", {username})
+        .then(res => {
+            dispatch(watchedVideoInfo(res.data));
         })
         .catch(err => console.log(err));
 }

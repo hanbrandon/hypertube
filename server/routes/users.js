@@ -327,13 +327,26 @@ module.exports = (passport) => {
     router.post('/watchmovie', (req, res) => {
         const username = req.body.username;
         const imdb = req.body.imdb;
-        User.findOne({ username }, user => {
+        User.findOne({ username }, (err, user) => {
             let watchedImdb = user.watchedImdb;
-            watchedImdb.push(imdb);
-            User.update(user, {watchedImdb}).then(x => {
+            console.log(user);
+            if (!watchedImdb.includes(imdb)) {
+                watchedImdb.push(imdb);
+            }
+            User.updateOne({ username }, {watchedImdb: watchedImdb}).then(x => {
                 res.json({
                     watchedImdb
                 })
+            })
+        })
+    })
+
+    router.post('/getwatched', (req, res) => {
+        const username = req.body.username;
+        User.findOne({ username }, (err, user) => {
+            let watchedImdb = user.watchedImdb;
+            res.json({
+                watchedImdb
             })
         })
     })

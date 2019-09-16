@@ -21,6 +21,7 @@ class Movie extends Component {
 		}
 		this.onChange = this.onChange.bind(this);
 		this.onClick = this.onClick.bind(this);
+		this.onWatchVideo = this.onWatchVideo.bind(this);
 	}
 
 	onChange = e => {
@@ -69,21 +70,29 @@ class Movie extends Component {
 	}
 
 	onWatchVideo() {
-		this.props.watchedVideo({imdb: this.props.torrent.detail.imdb_code, username:this.props.auth.user.username});
+		console.log("clicked");
+		console.log(this.props.torrent.detail.imdb_code)
+		console.log(this.props.auth.user.username)
+		const imdb_data = {
+			imdb: this.props.torrent.detail.imdb_code,
+			username: this.props.auth.user.username
+		}
+		this.props.watchedVideo(imdb_data);
 	}
 
-	videoPlayer(detail, videoPath, subtitlePath) {
+	videoPlayer(detail, videoPath, subtitlePath, onWatchVideo) {
 		return (
-			<Video className="videoPlayer"
-				controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen', 'Captions']}
-				poster={detail.large_cover_image}
-				onCanPlayThrough={() => {
-					// Do stuff
-				}}
-				onClick={e => {this.onWatchVideo()}}>
-			<source src={process.env.PUBLIC_URL + videoPath} type="video/mp4" /> 
-			<TrackList subList={subtitlePath} className="subtitleList"/>
-			</Video>
+			<div onClick={e => onWatchVideo()}>
+				<Video className="videoPlayer"
+					controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen', 'Captions']}
+					poster={detail.large_cover_image}
+					onCanPlayThrough={() => {
+						// Do stuff
+					}}>
+				<source src={process.env.PUBLIC_URL + videoPath} type="video/mp4" /> 
+				<TrackList subList={subtitlePath} className="subtitleList"/>
+				</Video>
+			</div>
 		)
 	}
 
@@ -108,11 +117,10 @@ class Movie extends Component {
 			const subtitlePath = this.props.torrent.detail.subtitlePath;
 			const profileImage = this.props.auth.user.profileImage ? this.props.auth.user.profileImage : "http://localhost:3000/user/default.png" 
 			const lang = this.props.translate.lang;
-			console.log(detail)
 			return (
 				<div className="movieForm">
 					<div className="movieDetails">
-						{this.state.videoFunction ? this.state.videoFunction(detail, videoPath, subtitlePath) : ""}
+						{this.state.videoFunction ? this.state.videoFunction(detail, videoPath, subtitlePath, this.onWatchVideo) : ""}
 						<div className="movieTitle">
 							<div className="movieGenres">
 								<MovieGenres lang={lang} genres={detail.genres}/>

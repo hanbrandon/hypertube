@@ -9,7 +9,6 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-    console.log(action.payload)
     switch (action.type) {
         case types.SET_CURRENT_USER:
             return {
@@ -25,7 +24,9 @@ export default function(state = initialState, action) {
                     lastName: action.payload.lastName,
                     username: action.payload.username,
                     profileImage: (action.payload.profileImage ? action.payload.profileImage : 
-                                    (state.user.profileImage ? state.user.profileImage : "http://localhost:3000/user/default.png"))
+                                    (isEmpty(action.payload) ? undefined :
+                                    (state.user.profileImage ? state.user.profileImage : "http://localhost:3000/user/default.png"))),
+                    watchedImdb: action.payload.watchedImdb
                 }
             };
         case types.USER_LOADING:
@@ -39,6 +40,14 @@ export default function(state = initialState, action) {
                 user: {
                     ...state.user,
                     profileImage: action.payload
+                }
+            }
+        case types.WATCHED_VIDEO:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    watchedImdb: action.payload
                 }
             }
         default:
