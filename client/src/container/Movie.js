@@ -68,6 +68,10 @@ class Movie extends Component {
 		}
 	}
 
+	onWatchVideo() {
+		this.props.watchedVideo({imdb: this.props.torrent.detail.imdb_code, username:this.props.auth.user.username});
+	}
+
 	videoPlayer(detail, videoPath, subtitlePath) {
 		return (
 			<Video className="videoPlayer"
@@ -75,15 +79,12 @@ class Movie extends Component {
 				poster={detail.large_cover_image}
 				onCanPlayThrough={() => {
 					// Do stuff
-			}}>
+				}}
+				onClick={e => {this.onWatchVideo()}}>
 			<source src={process.env.PUBLIC_URL + videoPath} type="video/mp4" /> 
 			<TrackList subList={subtitlePath} className="subtitleList"/>
 			</Video>
 		)
-	}
-
-	onWatchVideo() {
-		this.props.watchedVideo(this.props.torrent.detail.imdb_code);
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {

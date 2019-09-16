@@ -344,3 +344,13 @@ export const translateTo = (lang) => {
         lang
     }
 };
+
+// Watched movie
+export const watchedVideo = imdb_id => {
+    axios
+        .post("/api/users/watchmovie", imdb_id)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => console.log(err));
+}

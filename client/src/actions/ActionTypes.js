@@ -13,3 +13,4 @@ export const RESET_PAGE = 'RESET_PAGE';
 export const UPLOAD_PROFILE = 'UPLOAD_PROFILE';
 export const TRANSLATE = 'TRANSLATE';
 export const STREAM = 'STREAM';
+export const WATCHED_VIDEO = 'WATCHED_VIDEO';

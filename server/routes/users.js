@@ -323,5 +323,20 @@ module.exports = (passport) => {
             }
         })
     })
+
+    router.post('/watchmovie', (req, res) => {
+        const username = req.body.username;
+        const imdb = req.body.imdb;
+        User.findOne({ username }, user => {
+            let watchedImdb = user.watchedImdb;
+            watchedImdb.push(imdb);
+            User.update(user, {watchedImdb}).then(x => {
+                res.json({
+                    watchedImdb
+                })
+            })
+        })
+    })
+
     return router;
 }
