@@ -5,7 +5,6 @@ import ReactImageFallback from "react-image-fallback";
 import translateJson from "../../utils/translate.json";
 
 export const CommentList = (props) => {
-	console.log(props)
 	if (props.comments) {
 		const comments = props.comments.map(comment => {
 		return(
@@ -47,8 +46,6 @@ export const DownloadTable = (props) => {
 	const lang = props.lang;
 	if ( props.torrents && props.imdb_id) {
 		const files = props.torrents.map(file => {
-				/* console.log(file);
-				console.log('size: ' + file.size_bytes) */
 				if (file.hash) {
 					const hash = 'magnet:?xt=urn:btih:' + file.hash;
 					return (

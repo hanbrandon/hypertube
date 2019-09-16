@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { resetPassword, translateTo } from "../actions/index";
 import classnames from "classnames";
 
+import translateJson from "../utils/translate.json";
+
 class ForgotPW extends Component {
     constructor(props) {
         super(props);
@@ -47,13 +49,11 @@ class ForgotPW extends Component {
 
     translateToEn = e => {
         e.preventDefault();
-        console.log("en");
         this.props.translateTo("en");
     }
 
     translateToKo = e => {
         e.preventDefault();
-        console.log("ko");
         this.props.translateTo("ko");
     }
 
@@ -66,7 +66,7 @@ class ForgotPW extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="logo"><Link to="/">{lang === "en" ? "Hypertube" : "하이퍼튜브"}</Link></div>
                     <div><input onChange={this.onChange} value={this.state.email} error={errors.email} className={classnames("", { invalid: errors.email || errors.emailnotfound }) + "logininput"} placeholder={lang === "en" ? "Email Address" : "이메일 주소"} id="email" type="text" required/></div>
-                    <span className="red-text"> {errors.email} {errors.emailnotfound} </span>
+                    <span className="red-text"> {lang === "en" ? errors.email : translateJson[errors.email]} {lang === "en" ? errors.emailnotfound : translateJson[errors.emailnotfound]} </span>
                     <hr/>
                     <button className="btn-customize btn-customize-full" type="submit">{lang === "en" ? "RESET PASSWORD" : "비밀번호 찾기"}</button>
                 </form>

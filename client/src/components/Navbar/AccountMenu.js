@@ -48,13 +48,11 @@ class AccountMenu extends Component {
 
 	translateToEn = e => {
         e.preventDefault();
-        console.log("en");
         this.props.translateTo("en");
     }
 
     translateToKo = e => {
         e.preventDefault();
-        console.log("ko");
         this.props.translateTo("ko");
 	}
 	

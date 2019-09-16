@@ -25,7 +25,6 @@ class Navbar extends Component {
 		this.downloadExpand = this.downloadExpand.bind(this);
 		this.onLogoutClick = this.onLogoutClick.bind(this);
 		downloadPercentage((err, bytesDone) => {
-			console.log(bytesDone);
 			let downloadObj = {
 				title: bytesDone.fileName,
 				rate: bytesDone.downloaded,
@@ -51,7 +50,6 @@ class Navbar extends Component {
 					downloadRate: mergedList
 				})
 			}
-			// console.log(this.state.downloadRate);
 		})
 	}
 	
@@ -98,7 +96,6 @@ class Navbar extends Component {
 
 	render() {
 		const lang = this.props.translate.lang;
-		console.log(lang)
 		return (
 			<div>
 				<div className="mobileBar">

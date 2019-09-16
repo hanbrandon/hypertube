@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { registerUser, translateTo } from '../actions/index';
 import classnames from 'classnames';
 
+import translateJson from "../utils/translate.json";
+
 class Register extends Component {
     constructor(props) {        
         super(props);
@@ -54,13 +56,11 @@ class Register extends Component {
 
     translateToEn = e => {
         e.preventDefault();
-        console.log("en");
         this.props.translateTo("en");
     }
 
     translateToKo = e => {
         e.preventDefault();
-        console.log("ko");
         this.props.translateTo("ko");
     }
 
@@ -72,18 +72,18 @@ class Register extends Component {
             <form noValidate onSubmit={this.onSubmit} className="registerform">
                 <div className="logo"><Link to="/">{lang === "en" ? "Hypertube" : "하이퍼튜브"}</Link></div>
                 <div><input onChange={this.onChange} value={this.state.username} error={errors.username} className={classnames("", {invalid: errors.username}) + "logininput"} placeholder={lang === "en" ? "Username" : "아이디"} id="username" type="text" required/></div>
-                <span className="red-text">{errors.username}</span>
+                <span className="red-text">{lang === "en" ? errors.username : translateJson[errors.username]}</span>
                 <div><input onChange={this.onChange} value={this.state.password} error={errors.password} className={classnames("", {invalid: errors.password}) + "logininput"} placeholder={lang === "en" ? "Enter Password" : "비밀번호"} id="password" type="password" required/></div>
-                <span className="red-text">{errors.password}</span>
+                <span className="red-text">{lang === "en" ? errors.password : translateJson[errors.password]}</span>
                 <div><input onChange={this.onChange} value={this.state.password2} error={errors.password2} className={classnames("", {invalid: errors.password2}) + "logininput"} placeholder={lang === "en" ? "Re-enter Password" : "비밀번호 재입력"} id="password2" type="password" required/></div>
-                <span className="red-text">{errors.password2}</span>
+                <span className="red-text">{lang === "en" ? errors.password2 : translateJson[errors.password2]}</span>
                 <hr/>
                 <div><input onChange={this.onChange} value={this.state.firstName} error={errors.firstName} className={classnames("", {invalid: errors.firstName}) + "logininput"} placeholder={lang === "en" ? "First Name" : "이름"} id="firstName" type="text" required/></div>
-                <span className="red-text">{errors.firstName}</span>
+                <span className="red-text">{lang === "en" ? errors.firstName : translateJson[errors.firstName]}</span>
                 <div><input onChange={this.onChange} value={this.state.lastName} error={errors.lastName} className={classnames("", {invalid: errors.lastName}) + "logininput"} placeholder={lang === "en" ? "Last Name" : "성"} id="lastName" type="text" required/></div>
-                <span className="red-text">{errors.lastName}</span>
+                <span className="red-text">{lang === "en" ? errors.lastName : translateJson[errors.lastName]}</span>
                 <div><input onChange={this.onChange} value={this.state.email} error={errors.email} className={classnames("", {invalid: errors.email}) + "logininput"} placeholder={lang === "en" ? "Email Address" : "이메일 주소"} id="email" type="email" required/></div>
-                <span className="red-text">{errors.email}</span>
+                <span className="red-text">{lang === "en" ? errors.email : translateJson[errors.email]}</span>
                 <hr/>
                 <button className="btn-customize btn-customize-full" type="submit">{lang === "en" ? "REGISTER" : "회원가입"}</button>
                 <Link to="/login" className="login">{lang === "en" ? "login" : "로그인"}</Link>                
