@@ -5,7 +5,7 @@ import ReactImageFallback from "react-image-fallback";
 
 import translateJson from "../utils/translate.json";
 
-const MovieList = ({ movie, title, year, poster, genres, rating, id, imdb, lang}) => {
+const MovieList = ({ movie, title, year, poster, genres, rating, id, imdb, lang, auth}) => {
     return (
         <div className="movieList">
             <Link to={{
@@ -15,6 +15,7 @@ const MovieList = ({ movie, title, year, poster, genres, rating, id, imdb, lang}
                 }
             }}>
             <div className="movie">
+                {auth.watchedImdb.includes(imdb) ? <div className="watched"><i className="fas fa-stop-circle"></i></div> : "" }
                 <MoviePoster  poster={poster} alt={title}/>
                 <div className="title">
                     <span className="titleSpan">{title}<hr/></span>

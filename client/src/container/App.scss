@@ -433,6 +433,36 @@ table {
         display: none;
       }
 
+      .watched {
+        display: block;
+        width: calc(100% + 1px);
+        height: calc(100% + 1px);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+        background-color: black;
+        opacity: 0.5;
+        .fas {
+          color: white;
+          position: absolute;
+          font-size: 8vw;
+          left: calc(50% - 4vw);
+          top: calc(50% - 4vw);
+
+        }
+      }
+      @media (max-width: 735px) {
+        .watched {
+          .fas {
+            font-size: 12vw;
+            left: calc(50% - 6vw);
+            top: calc(50% - 6vw);
+  
+          }
+        }
+      }
       img {
         width: 100%;
         height: auto;
