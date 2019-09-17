@@ -68,6 +68,7 @@ class Home extends Component {
 					id={movie.id}
 					imdb={movie.imdb_code}
 					lang={lang}
+					auth={this.props.auth.user}
 				/>
 			} else {
 				return '';
