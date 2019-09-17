@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const fs = require('fs');
 
 //session
 const session = require("express-session");
@@ -8,9 +9,11 @@ const sessionConfig = require("./config/serverConfig.json").session;
 const MongoStore = require('connect-mongo')(session);
 
 const app = express();
+const schedule = require('node-schedule');
 
 // DB Config
 const db = require("./config/keys").mongoURI;
+const moment = require('moment')
 
 // Connect to MongoDB
 mongoose
@@ -73,7 +76,7 @@ let people = [];
 io.sockets.on('connection', (socket) => {
 	// change to username_related chatroom using mysql db
     socket.on('disconnect', () => {
-        console.log("Disconnected from the download server");
+        /* console.log("Disconnected from the download server"); */
 	})
 	people[socket.handshake.session.logged_user] = socket.id;
 	socket.handshake.session.save();
@@ -141,6 +144,39 @@ app.use("/api/users", users);
 app.use("/api/resetpw", resetpw);
 app.use("/api/movie", movie(io));
 app.use("/api/comment", comment);
+
+const rule = new schedule.RecurrenceRule();
+rule.minute = new schedule.Range(0, 59, 1);
+
+/*|| 0 0 * * * ||*/
+schedule.scheduleJob(rule, () => {
+	let updated = undefined;
+	const now = moment(new Date());
+	let cleanId = [];
+	let moviePath = undefined;
+	const deleteMovie = () => {
+		for (i in cleanId) {
+			moviePath = process.cwd() + '/client/public' + cleanId[i].moviePath;
+			Movie.deleteOne({_id: cleanId[i].id}, err => {
+				if (err) console.log(err);
+				global.terminateConnection();
+				fs.unlinkSync(moviePath);
+			})
+		}
+	}
+
+	Movie.find({}, (err, movies) => {
+		for (let i = 0; i < movies.length; i++) {
+			updated = moment(movies[i].lastPlayedDate)
+			if (-updated.diff(now, 'days') > 30) {
+				cleanId.push({id: movies[i]._id, moviePath: movies[i].moviePath});
+			}
+			if (i === movies.length - 1) {
+				deleteMovie();
+			}
+		}
+	});
+})
 
 // process.env.port is Heroku's port if you choose to deploy the app there
 const port = process.env.PORT || 5000; 

@@ -70,10 +70,8 @@ class Movie extends Component {
 	}
 
 	onWatchVideo() {
-		console.log("clicked");
-		console.log(this.props.torrent.detail.imdb_code)
-		console.log(this.props.auth.user.username)
 		const imdb_data = {
+			videoPath: this.props.torrent.detail.videoPath,
 			imdb: this.props.torrent.detail.imdb_code,
 			username: this.props.auth.user.username
 		}
