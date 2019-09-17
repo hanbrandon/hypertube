@@ -83,11 +83,21 @@ export const verifyReset = (userData, history) => dispatch => {
 // Log user out
 export const logoutUser = () => dispatch => {
     // Remove token from local storage
-    sessionStorage.removeItem("jwtToken");
-    // Remove auth header for future requests
-    setAuthToken(false);
-    // Set current user to empty object {} which will set isAuthenticated to false
-    dispatch(setCurrentUser({}));
+    axios
+        .post("/api/users/logout")
+        .then(res => {
+            sessionStorage.removeItem("jwtToken");
+            // Remove auth header for future requests
+            setAuthToken(false);
+            // Set current user to empty object {} which will set isAuthenticated to false
+            dispatch(setCurrentUser({}));
+        })
+        .catch(err => {
+            dispatch({
+                type: types.GET_ERRORS,
+                payload: err.response.err
+            })
+        })
 };
 
 export const updateUser = (userData, history) => dispatch => {

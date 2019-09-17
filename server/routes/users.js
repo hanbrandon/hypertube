@@ -14,6 +14,7 @@ const validateRegisterInput = require("../functions/validation").validateRegiste
 // Load User model
 const User = require("../models/User");
 const Comment = require("../models/Comment");
+const Movie = require("../models/Movie");
 
 // @route POST api/users/register
 // @desc Register user
@@ -331,18 +332,25 @@ module.exports = (passport) => {
     router.post('/watchmovie', (req, res) => {
         const username = req.body.username;
         const imdb = req.body.imdb;
-        User.findOne({ username }, (err, user) => {
-            let watchedImdb = user.watchedImdb;
-            console.log(user);
-            if (!watchedImdb.includes(imdb)) {
-                watchedImdb.push(imdb);
-            }
-            User.updateOne({ username }, {watchedImdb: watchedImdb}).then(x => {
-                res.json({
-                    watchedImdb
+        const videoPath = req.body.videoPath;
+        const newDate = Date()
+        if (videoPath) {
+            Movie.updateOne({moviePath: videoPath}, {lastPlayedDate: newDate})
+            .then(x => {
+                User.findOne({ username }, (err, user) => {
+                    let watchedImdb = user.watchedImdb;
+                    console.log(user);
+                    if (!watchedImdb.includes(imdb)) {
+                        watchedImdb.push(imdb);
+                    }
+                    User.updateOne({ username }, {watchedImdb: watchedImdb}).then(x => {
+                        res.json({
+                            watchedImdb
+                        })
+                    })
                 })
             })
-        })
+        }
     })
 
     router.post('/getwatched', (req, res) => {
@@ -352,6 +360,13 @@ module.exports = (passport) => {
             res.json({
                 watchedImdb
             })
+        })
+    })
+
+    router.post('/logout', (req, res) => {
+        delete req.session.logged_user;
+        res.json({
+            logged_user: ""
         })
     })
 

@@ -141,15 +141,21 @@ module.exports = (io) => {
                                         })
                                         engine.on('idle', res => {
                                             engine.destroy(res => {
-                                                io.to(global.people[username]).emit('percentagePing', { 
-                                                    downloaded: "Finished",
-                                                    fileName: fileName,
-                                                    movieId: movieId,
-                                                    imdbId: imdbId
-                                                })
-                                                Movie.updateOne({torrent_url: torrentId}, { downloading: false }).then(x => console.log(x));
+                                                Movie.updateOne({torrent_url: torrentId}, { downloading: false }).then(x =>{
+                                                    io.to(global.people[username]).emit('percentagePing', { 
+                                                        downloaded: "Finished",
+                                                        fileName: fileName,
+                                                        movieId: movieId,
+                                                        imdbId: imdbId
+                                                    })
+                                                });
                                             })
                                         })
+                                        global.terminateConnection = () => {
+                                            engine.remove(() => {
+                                                /* console.log("magnet info terminated"); */
+                                            })
+                                        }
                                     }
                                 });
                             }
