@@ -186,7 +186,6 @@ export const downloadMagnet = (fileUrl) => dispatch => {
     axios
     .post("/api/movie/download", { hash: fileUrl.hash, imdb: fileUrl.imdb, movieId: fileUrl.movieId, username: fileUrl.username })
     .then(res => {
-        console.log(res);
         if (res.data.success) {
             dispatch(downloadMagnetInfo(res.data.videoPath, res.data.subtitlePath));
         }

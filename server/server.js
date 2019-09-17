@@ -84,49 +84,6 @@ io.sockets.on('connection', (socket) => {
 	socket.on('ping', msg => {
 		alert(msg);
 	});
-    /* socket.on('chat_message', function(message) {
-		var from = message.by;
-		var to = message.to;
-		var msg = message.message;
-		var date = new Date();
-		var options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-		date = date.toLocaleDateString("en-US", options);
-		db.query(`SELECT * FROM users WHERE username=?`, [from], function(err, rows) {
-			if (err) throw err;
-			if (rows && rows[0]) {
-				db.query(`INSERT INTO chats (from_id, to_id, chat, time) VALUES (?, ?, ?, ?)`, [rows[0].id, to, msg, date], function (err) {
-					if (err) throw err;
-					db.query(`SELECT username, image_1 FROM users WHERE id = ?`, [to], function(err0, names) {
-						io.to(global.people[names[0].username]).emit('chat_message', {id: rows[0].id, from: from, msg: msg, date: date, profile_pic: rows[0].image_1});
-						io.to(global.people[socket.handshake.session.logged_user]).emit('chat_message', {from: from, msg: msg, date: date, profile_pic: rows[0].image_1});
-					});
-				});
-			}
-		});
-	});
-
-	socket.on('notification', function(data) {
-		var to = data.to;
-		var to_id = data.to_id;
-		var from_id = data.from_id;
-		var notice = data.notice;
-		var date = new Date();
-		var options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-		date = date.toLocaleDateString("en-US", options);
-		//db.query(`SELECT * FROM users WHERE username = ?`, [from_id])
-		db.query(`INSERT INTO notification (from_id, to_id, notice, time) VALUES (?, ?, ?, ?)`, [from_id, to_id, notice, date], (err) => {
-			if (err) throw err;
-			else {
-				db.query(`SELECT * FROM users WHERE id = ?`, [from_id], (err, user) => {
-					if (err) throw err;
-					if (user && user[0]) {
-						var fullname = user[0].firstname + " " + user[0].lastname;
-						io.to(global.people[to]).emit('notification', {val:1, from_id:from_id, from_name: fullname, notice:notice, date:date});
-					}
-				})
-			}
-		});
-	}); */
 });
 global.people = people;
 
