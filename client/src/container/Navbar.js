@@ -111,7 +111,7 @@ class Navbar extends Component {
 					<div onClick={this.downloadExpand} className="downloadIcon"><i className="fas fa-arrow-alt-circle-down"/></div>
 					<DownloadBar lang={lang} isOpen={this.state.downloadBar} expand={this.downloadExpand} list={this.state.downloadRate}/>
 					{
-						sessionStorage.jwtToken ?
+						this.props.auth.isAuthenticated ?
 						<div>
 							<AccountMenu/></div> :
 						<Link className="userIcon" to="/login"><i className="fas fa-user-circle"></i></Link>

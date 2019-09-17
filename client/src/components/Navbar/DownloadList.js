@@ -14,7 +14,7 @@ const DownloadList = (props) => {
 			<Link to={link} key={ikey}>
 				<div className="downloadList">
 					<span>{download.title}</span>
-					{download.rate === "Finished" ? <span className="finish">Finished</span> : <Line percent={download.rate} strokeWidth="4" trailWidth="4" strokeColor="green" />}	
+					{download.rate === "Finished" ? <span className="finish">{lang === "en" ? "Finished" : "다운로드 완료"}</span> : <Line percent={download.rate} strokeWidth="4" trailWidth="4" strokeColor="green" />}	
 				</div>
 			</Link>
 		)

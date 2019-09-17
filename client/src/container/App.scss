@@ -331,6 +331,10 @@ table {
   .downloadList {
     width: 100%;
     height: auto;
+    .finish {
+      font-size: 10pt;
+      color: #757575;
+    }
     span {
       margin: 5px 10px -10px 10px;
       width: 90%;
@@ -432,7 +436,7 @@ table {
   .movieList {
     @media (max-width: 1068px) {
       .movie {
-        width: 20% !important;
+        width: 25% !important;
         .titleSpan {
           font-size: 1em;
         }
