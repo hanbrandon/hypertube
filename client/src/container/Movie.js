@@ -87,7 +87,7 @@ class Movie extends Component {
 					onCanPlayThrough={() => {
 						// Do stuff
 					}}>
-				<source src={process.env.PUBLIC_URL + videoPath} type="video/mp4" /> 
+				{videoPath ? <source src={process.env.PUBLIC_URL + videoPath} type="video/mp4" /> : ""}
 				<TrackList subList={subtitlePath} className="subtitleList"/>
 				</Video>
 			</div>
