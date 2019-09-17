@@ -145,11 +145,8 @@ app.use("/api/resetpw", resetpw);
 app.use("/api/movie", movie(io));
 app.use("/api/comment", comment);
 
-const rule = new schedule.RecurrenceRule();
-rule.minute = new schedule.Range(0, 59, 1);
-
 /*|| 0 0 * * * ||*/
-schedule.scheduleJob(rule, () => {
+schedule.scheduleJob('0 0 * * *', () => {
 	let updated = undefined;
 	const now = moment(new Date());
 	let cleanId = [];
@@ -159,8 +156,12 @@ schedule.scheduleJob(rule, () => {
 			moviePath = process.cwd() + '/client/public' + cleanId[i].moviePath;
 			Movie.deleteOne({_id: cleanId[i].id}, err => {
 				if (err) console.log(err);
-				global.terminateConnection();
-				fs.unlinkSync(moviePath);
+				if (global.terminateConnection instanceof Function) {
+					global.terminateConnection();
+				}
+				if (fs.existsSync(moviePath)) {
+					fs.unlinkSync(moviePath);
+				}
 			})
 		}
 	}
