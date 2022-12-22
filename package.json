@@ -26,7 +26,7 @@
     "find-remove": "^2.0.0",
     "http-proxy-middleware": "^0.20.0",
     "is-empty": "^1.2.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mkdirp": "^0.5.1",
     "mongoose": "^5.7.1",
     "node-schedule": "^1.3.2",
